@@ -18,11 +18,17 @@
   </properties>
 
   <dependencies>
-    <!-- MySQL JDBC driver -->
+    <!-- MySQL JDBC driver (groupId + artifactId changed in 8.1.0+) -->
     <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
+      <groupId>com.mysql</groupId>
+      <artifactId>mysql-connector-j</artifactId>
       <version>8.1.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.mindrot</groupId>
+      <artifactId>jbcrypt</artifactId>
+      <version>0.4</version>
     </dependency>
   </dependencies>
 

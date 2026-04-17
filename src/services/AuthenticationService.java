@@ -2,6 +2,7 @@ package services;
 
 import database.DatabaseConnection;
 import ui.Menu;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.*;
 
@@ -11,7 +12,8 @@ public class AuthenticationService {
             String query = "SELECT * FROM users WHERE username = ? and password = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, username);
-            stmt.setString(2, password);
+            String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(12));
+            stmt.setString(2, hashedPassword);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
@@ -22,8 +24,8 @@ public class AuthenticationService {
 
                 if (role.equalsIgnoreCase("CUSTOMER")) {
                     Menu.displaycustomermenu(user_Id, username);
-                } else if(role.equalsIgnoreCase("ADMIN")){
-                    Menu.displayadminmenu(user_Id,username);
+                } else if (role.equalsIgnoreCase("ADMIN")) {
+                    Menu.displayadminmenu(user_Id, username);
                 }
                 return true;
             }
@@ -35,7 +37,7 @@ public class AuthenticationService {
 
     public static boolean register(String username, String password, String role) {
         try (Connection conn = DatabaseConnection.getconnection()) {
-            //User exist or not
+            // User exist or not
             String checkquery = "SELECT * FROM users WHERE username = ?";
             PreparedStatement checkstmt = conn.prepareStatement(checkquery);
             checkstmt.setString(1, username);
@@ -44,7 +46,7 @@ public class AuthenticationService {
                 return false;
             }
 
-            //Insert new user
+            // Insert new user
             String query = "INSERT INTO users (username, password, role) VALUES (?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, username);
