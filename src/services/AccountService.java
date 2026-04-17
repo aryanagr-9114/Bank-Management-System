@@ -12,7 +12,7 @@ import java.util.Random;
 public class AccountService {
 
     public static void createnewaccount(int userId, String accountType, double initialDeposit) {
-        try (Connection conn = DatabaseConnection.getconnection()) {
+        try (Connection conn = DatabaseConnection.getConnection()) {
             String accountNumber = generateUniqueAccountNumber(conn);
 
             String query = "INSERT INTO accounts (account_number, user_id, account_type, balance) VALUES (?, ?, ?, ?)";
@@ -30,7 +30,7 @@ public class AccountService {
     }
 
     public static void viewaccount(String accountNumber) {
-        try (Connection conn = DatabaseConnection.getconnection()) {
+        try (Connection conn = DatabaseConnection.getConnection()) {
             String query = "SELECT * FROM accounts WHERE account_number = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, accountNumber);
@@ -49,7 +49,7 @@ public class AccountService {
     }
 
     public static void deleteaccount(String accountNumber) {
-        try (Connection conn = DatabaseConnection.getconnection()) {
+        try (Connection conn = DatabaseConnection.getConnection()) {
             String query = "DELETE FROM accounts WHERE account_number = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, accountNumber);
