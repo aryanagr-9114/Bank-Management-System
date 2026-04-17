@@ -1,189 +1,166 @@
-# 🏦 Banking Management System (Java + MySQL)
+# 🏦 Bank Management System
 
-### 👨‍💻 Author
-**Aryan Agrawal**  
-Email: agarwalaryan9114@gmail.com  
-GitHub: https://github.com/aryanagr-9114
+> A console-based Java banking application backed by MySQL — **currently being upgraded to a production-grade Spring Boot REST API.**
 
----
-
-## 🧩 Overview
-This project is a **console-based Banking Management System** written in **Java** with **MySQL** as the backend.  
-It provides simple account management operations for **customers** and **admins**, using compiled `.class` files located in the `out/production/Banking Management System/` directory.
-
-The project uses:
-- A JDBC-style `DatabaseConnection` class  
-- Separate service classes for login and account handling  
-- A basic SQL schema file for creating required tables  
-
-This system is meant for learning and practice — not for production use.
+![Java CI](https://github.com/aryanagr-9114/Bank-Management-System/actions/workflows/ci.yml/badge.svg)
+![License](https://img.shields.io/badge/license-MIT-green)
 
 ---
 
-## ⚙️ Features (based on actual project contents)
+## 🚧 Status
+
+| Version | Status |
+|---|---|
+| v1.0 — Console App (current `main` branch) | ✅ Working |
+| v2.0 — Spring Boot REST API (`dev` branch) | 🔄 In Progress |
+
+---
+
+## ✨ Features
+
 ### 👤 Customer
-- Register & Login  
-- Create account (Savings / Current)  
-- View all accounts  
-- Delete account  
-- Logout  
+- Register & Login (password hashed with BCrypt)
+- Create Savings or Current account
+- View all personal accounts
+- Delete account
+- Logout
 
 ### 🛡️ Admin
-- Login  
-- View all accounts  
-- Delete accounts  
-
-### 🔧 System Details
-- Database schema located at  
-  `out/production/Banking Management System/database/bank_db.sql`
-- Compiled Java classes inside `out/production/...`
-- No build system (like Maven/Gradle)
-- No networking, no GUI — **pure CLI**
+- Login
+- View all customer accounts
+- Delete any account
 
 ---
 
-## 🧱 Technologies Used
-- **Language:** Java (compiled .class files present)
-- **Database:** MySQL
-- **Core Concepts:** JDBC-style DB connection, classes, services, simple authentication
-- **Tools:** IntelliJ IDEA (project contains `.idea/` and `.iml`)
+## 🛠 Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Language | Java 8 |
+| Database | MySQL 8 |
+| Connectivity | JDBC (`mysql-connector-java 8.1.0`) |
+| Build | Apache Maven 3 + maven-shade-plugin |
+| Architecture | Layered: `database` / `models` / `services` / `ui` / `utils` |
 
 ---
 
-## 📁 Project Structure (actual from ZIP)
+## 📁 Project Structure
 
 ```
-Banking Management System/
-├── .idea/                     # IntelliJ project files
-├── Banking Management System.iml
-├── out/
-│   └── production/
-│       └── Banking Management System/
-│           ├── BankManagementSystem.class          # Main entry point
-│           ├── database/
-│           │   ├── DatabaseConnection.class
-│           │   └── bank_db.sql                     # Database schema
-│           ├── models/
-│           │   ├── account.class
-│           │   ├── user.class
-│           │   └── transaction.class
-│           └── services/
-│               ├── AccountService.class
-│               └── AuthenticationService.class
+Bank-Management-System/
+├── src/
+│   ├── BankManagementSystem.java      # Main entry point
+│   ├── database/
+│   │   └── DatabaseConnection.java    # JDBC connection manager
+│   ├── models/
+│   │   ├── user.java
+│   │   ├── account.java
+│   │   └── transaction.java
+│   ├── services/
+│   │   ├── AccountService.java
+│   │   └── AuthenticationService.java
+│   ├── ui/                            # Console UI handlers
+│   └── utils/                        # Helper utilities
+├── schema.sql                         # Database schema (3 tables)
+├── config.properties.example          # DB credentials template
+├── pom.xml                            # Maven build file
+└── .github/
+    └── workflows/
+        └── ci.yml                     # GitHub Actions CI
 ```
-
-✔ No `src/` folder present  
-✔ Actual functionality depends on these compiled classes  
 
 ---
 
-## 🗄️ Database Setup
+## 🗄️ Database Schema
 
-Use the SQL file included in the project:
+3 tables defined in `schema.sql`:
+
+```sql
+users       → user_id, username, password (VARCHAR 255), role (admin/customer)
+accounts    → account_id, user_id (FK), account_type, balance, account_number
+transaction → transaction_id, account_number (FK), type (deposit/withdrawal/transfer), amount, date
+```
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+- Java 8+
+- MySQL 8
+- Maven 3
+
+### Setup
 
 ```bash
-mysql -u root -p < "out/production/Banking Management System/database/bank_db.sql"
+# 1. Clone the repo
+git clone https://github.com/aryanagr-9114/Bank-Management-System.git
+cd Bank-Management-System
+
+# 2. Create the database
+mysql -u root -p < schema.sql
+
+# 3. Configure DB credentials
+cp config.properties.example config.properties
+# Edit config.properties — set your MySQL host, username, password
+
+# 4. Build the runnable JAR
+mvn clean package
+
+# 5. Run
+java -jar target/banking-management-system-1.0.0.jar
 ```
-
-This creates:
-- `users`
-- `accounts`
-- any fields required by the compiled services
-
-(These tables come directly from the SQL file — not assumptions.)
 
 ---
 
-## ⚙️ Configuration
-The compiled project uses a `DatabaseConnection` class.  
-Update connection details **inside that class** if needed (since no config file is present).
+## 🧠 Application Flow
 
-Expected fields typically include:
+### Customer
 ```
-URL
-USERNAME
-PASSWORD
-```
-You must edit the Java source if you want to change these values — since only `.class` files are present.
-
----
-
-## ▶️ Running the Application
-
-### **On Windows**
-```bash
-java -cp "out/production/Banking Management System;libs/*" BankManagementSystem
-```
-
-### **On Linux / macOS**
-```bash
-java -cp "out/production/Banking Management System:libs/*" BankManagementSystem
-```
-
-> Ensure **mysql-connector-java** is available inside a `libs/` folder  
-> (the project ZIP does **not** include the driver — you must add it manually).
-
----
-
-## 🧠 How the Program Works (Real, not assumed)
-
-### Customer Flow
-```
-1 → Register
-2 → Login
-3 → Create Account
-4 → View Accounts
-5 → Delete Account
+1 → Register    2 → Login    3 → Create Account
+4 → View Accounts             5 → Delete Account
 9 → Logout
 ```
 
-### Admin Flow
+### Admin
 ```
-1 → Login
-2 → View All Accounts
-3 → Delete Account
-9 → Logout
+1 → Login    2 → View All Accounts    3 → Delete Account    9 → Logout
 ```
-
-✔ These actions match the `.class` files detected  
-✔ No transfer, no passbook, no analytics — not present in compiled output
 
 ---
 
-## 🛑 Limitations (Truthful)
-- No source code (`src/`) included — only compiled classes  
-- MySQL connector JAR not included  
-- Credentials are likely hard-coded in `DatabaseConnection.class`  
-- No password hashing (based on typical student implementations)  
-- No transaction or concurrency support  
-- Strictly CLI — no GUI or web features  
-- Not modular for deployment  
+## 🧪 Running Tests
+
+```bash
+mvn test
+```
 
 ---
 
-## 📌 Recommended Improvements (Optional)
-- Add full source code (`src/`)
-- Add Maven/Gradle build file
-- Add password hashing (BCrypt)
-- Improve validation and exception handling
-- Create `config.properties` for DB credentials
-- Add account transactions (Deposit/Withdraw/Transfer)
-- Add unit tests
+## 📍 Roadmap
+
+- [x] Core banking operations (Register, Login, Account CRUD)
+- [x] MySQL-backed persistence via JDBC
+- [x] Maven build system with runnable JAR
+- [ ] BCrypt password hashing *(Day 3)*
+- [ ] JUnit 5 unit tests *(Day 4)*
+- [ ] GitHub Actions CI *(Day 5)*
+- [ ] Spring Boot 3 REST API migration *(Week 2)*
+- [ ] JWT Authentication
+- [ ] Swagger/OpenAPI documentation
+- [ ] Docker + docker-compose deployment
+- [ ] React dashboard frontend
 
 ---
 
 ## 📄 License
-A license is **included** in the project.
+
+MIT — see [LICENSE](LICENSE)
 
 ---
 
 ## 👤 Author
-```
-Author: Aryan Agrawal
-Email : agarwalaryan9114@gmail.com
-```
 
----
-
-## ✅ Final Notes
-This README describes **exactly what exists** in the uploaded Banking Management System project — no invented features, no assumptions beyond what the compiled files + SQL show.
+**Aryan Agrawal**
+- GitHub: [@aryanagr-9114](https://github.com/aryanagr-9114)
+- Email: agarwalaryan9114@gmail.com
