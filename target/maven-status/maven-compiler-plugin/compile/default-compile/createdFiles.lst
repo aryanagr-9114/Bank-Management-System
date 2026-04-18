@@ -1,11 +1,2 @@
-utils\inputhelper.class
-models\transaction.class
-ui\Menu.class
-database\DatabaseConnection.class
-services\AccountService.class
-services\AdminService.class
-services\AuthenticationService.class
-models\user.class
-BankManagementSystem.class
-models\account.class
 services\transactionservice.class
+ui\Menu.class
