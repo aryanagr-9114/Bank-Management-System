@@ -11,7 +11,7 @@
 
 | Version | Status |
 |---|---|
-| v2.0 — Spring Boot REST API (current `dev` & `main` branch) | ✅ Working |
+| v2.0 — Spring Boot REST API (current `main` branch) | ✅ Working |
 | v1.0 — Legacy Console App (archived) | ✅ Working |
 
 ---
