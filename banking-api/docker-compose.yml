@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  # --- 1. The Database Service ---
+  mysql-db:
+    image: mysql:8.0
+    container_name: bank-mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=bank_db
+    ports:
+      # Maps your actual computer's port 3307 to the container's port 3306
+      - "3307:3306" 
+    volumes:
+      # Saves your bank accounts so they aren't erased on restart
+      - mysql-data:/var/lib/mysql
+
+  # --- 2. The Spring Boot API Service ---
+  bank-api:
+    build: . # Looks for the "Dockerfile" we just made in this same folder!
+    container_name: bank-api
+    depends_on:
+      - mysql-db # Wait for the database to turn on before starting Java
+    ports:
+      - "8080:8080"
+    environment:
+      # We override the application.yml properties to point to the Docker database network!
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-db:3306/bank_db?allowPublicKeyRetrieval=true&useSSL=false
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+volumes:
+  mysql-data:

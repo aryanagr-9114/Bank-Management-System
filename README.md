@@ -142,8 +142,7 @@ mvn test
 - [x] Account endpoints (CRUD) with global error handling
 - [x] Transaction endpoints (Deposit, Withdraw, Transfer) with `@Transactional`
 - [x] Swagger/OpenAPI interactive documentation
-- [ ] Docker + docker-compose deployment
-- [ ] React dashboard frontend
+- [x] Docker + docker-compose deployment (`Dockerfile` & `docker-compose.yml`)
 
 ---
 
