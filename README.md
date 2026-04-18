@@ -50,19 +50,35 @@
 
 ```
 Bank-Management-System/
-├── banking-api/                       # Spring Boot 3 REST API (v2.0)
-│   ├── src/main/java/com/aryan/demo/
-│   │   ├── controller/
-│   │   ├── dto/
-│   │   ├── entity/
-│   │   ├── repository/
-│   │   └── security/
+├── banking-api/                          # Spring Boot 3 REST API (v2.0)
+│   ├── src/
+│   │   ├── main/java/com/aryan/demo/
+│   │   │   ├── config/                   # OpenApiConfig (Swagger setup)
+│   │   │   ├── controller/               # AuthController, AccountController, TransactionController
+│   │   │   ├── dto/                      # Request/Response DTOs
+│   │   │   ├── entity/                   # User, Account, Transaction (JPA Entities)
+│   │   │   ├── exception/                # GlobalExceptionHandler
+│   │   │   ├── repository/               # Spring Data JPA Repositories
+│   │   │   ├── security/                 # JwtService, JwtAuthFilter, SecurityConfig
+│   │   │   ├── service/                  # AccountService, TransactionService
+│   │   │   └── DemoApplication.java
+│   │   ├── resources/
+│   │   │   └── application.yml           # Spring Boot configuration
+│   │   └── test/
+│   ├── Dockerfile                        # Docker build instructions
+│   ├── docker-compose.yml                # Orchestrates MySQL + Spring Boot containers
 │   └── pom.xml
-├── src/                               # Legacy Console App (v1.0)
+├── src/                                  # Legacy Console App (v1.0 — archived)
 │   ├── BankManagementSystem.java
-│   └── services/
-├── pom.xml                            # Root Maven file
-└── .github/workflows/ci.yml           # GitHub Actions
+│   ├── database/
+│   ├── models/
+│   ├── services/
+│   ├── ui/
+│   └── utils/
+├── .github/workflows/ci.yml              # GitHub Actions CI
+├── schema.sql                            # Legacy MySQL schema
+├── config.properties.example            # Legacy DB config template
+└── pom.xml                               # Root Maven file
 ```
 
 ---
