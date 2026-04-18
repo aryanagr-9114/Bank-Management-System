@@ -8,7 +8,7 @@ import java.sql.*;
 
 public class AuthenticationService {
     public static boolean login(String username, String password) {
-        try (Connection conn = DatabaseConnection.getconnection()) {
+        try (Connection conn = DatabaseConnection.getConnection()) {
             String query = "SELECT * FROM users WHERE username = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, username);
@@ -39,7 +39,7 @@ public class AuthenticationService {
     }
 
     public static boolean register(String username, String password, String role) {
-        try (Connection conn = DatabaseConnection.getconnection()) {
+        try (Connection conn = DatabaseConnection.getConnection()) {
             // User exist or not
             String checkquery = "SELECT * FROM users WHERE username = ?";
             PreparedStatement checkstmt = conn.prepareStatement(checkquery);
