@@ -48,25 +48,19 @@
 
 ```
 Bank-Management-System/
-├── src/
-│   ├── BankManagementSystem.java      # Main entry point
-│   ├── database/
-│   │   └── DatabaseConnection.java    # JDBC connection manager
-│   ├── models/
-│   │   ├── user.java
-│   │   ├── account.java
-│   │   └── transaction.java
-│   ├── services/
-│   │   ├── AccountService.java
-│   │   └── AuthenticationService.java
-│   ├── ui/                            # Console UI handlers
-│   └── utils/                        # Helper utilities
-├── schema.sql                         # Database schema (3 tables)
-├── config.properties.example          # DB credentials template
-├── pom.xml                            # Maven build file
-└── .github/
-    └── workflows/
-        └── ci.yml                     # GitHub Actions CI
+├── banking-api/                       # Spring Boot 3 REST API (v2.0)
+│   ├── src/main/java/com/aryan/demo/
+│   │   ├── controller/
+│   │   ├── dto/
+│   │   ├── entity/
+│   │   ├── repository/
+│   │   └── security/
+│   └── pom.xml
+├── src/                               # Legacy Console App (v1.0)
+│   ├── BankManagementSystem.java
+│   └── services/
+├── pom.xml                            # Root Maven file
+└── .github/workflows/ci.yml           # GitHub Actions
 ```
 
 ---
@@ -142,11 +136,11 @@ mvn test
 - [x] Core banking operations (Register, Login, Account CRUD)
 - [x] MySQL-backed persistence via JDBC
 - [x] Maven build system with runnable JAR
-- [ ] BCrypt password hashing *(Day 3)*
-- [ ] JUnit 5 unit tests *(Day 4)*
-- [ ] GitHub Actions CI *(Day 5)*
-- [ ] Spring Boot 3 REST API migration *(Week 2)*
-- [ ] JWT Authentication
+- [x] BCrypt password hashing *(Day 3)*
+- [x] JUnit 5 unit tests *(Day 4)*
+- [x] GitHub Actions CI *(Day 5)*
+- [x] Spring Boot 3 REST API migration *(Week 2)*
+- [x] JWT Authentication
 - [ ] Swagger/OpenAPI documentation
 - [ ] Docker + docker-compose deployment
 - [ ] React dashboard frontend
