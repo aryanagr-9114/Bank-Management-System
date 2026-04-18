@@ -1,6 +1,6 @@
 # 🏦 Bank Management System
 
-> A console-based Java banking application backed by MySQL — **currently being upgraded to a production-grade Spring Boot REST API.**
+> A production-grade Spring Boot 3 REST API built for secure banking operations, featuring JWT Authentication, MySQL persistence via Spring Data JPA, and interactive OpenAPI documentation.
 
 ![Java CI](https://github.com/aryanagr-9114/Bank-Management-System/actions/workflows/ci.yml/badge.svg)
 ![License](https://img.shields.io/badge/license-MIT-green)
@@ -11,8 +11,8 @@
 
 | Version | Status |
 |---|---|
-| v1.0 — Console App (current `main` branch) | ✅ Working |
-| v2.0 — Spring Boot REST API (`dev` branch) | 🔄 In Progress |
+| v2.0 — Spring Boot REST API (current `dev` & `main` branch) | ✅ Working |
+| v1.0 — Legacy Console App (archived) | ✅ Working |
 
 ---
 
@@ -36,11 +36,13 @@
 
 | Layer | Technology |
 |---|---|
-| Language | Java 8 |
-| Database | MySQL 8 |
-| Connectivity | JDBC (`mysql-connector-java 8.1.0`) |
-| Build | Apache Maven 3 + maven-shade-plugin |
-| Architecture | Layered: `database` / `models` / `services` / `ui` / `utils` |
+| Language | Java 17 |
+| Framework | Spring Boot 3 |
+| Database | H2 (Dev) / MySQL 8 (Prod) |
+| Connectivity | Spring Data JPA / Hibernate |
+| Security | Spring Security + JWT Tokens |
+| Build | Maven Wrapper (`mvnw`) |
+| Architecture | Controller-Service-Repository (REST Architecture) |
 
 ---
 
@@ -80,30 +82,26 @@ transaction → transaction_id, account_number (FK), type (deposit/withdrawal/tr
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Java 8+
-- MySQL 8
-- Maven 3
+- Java 17+
+- Maven (Embedded wrapper provided)
 
-### Setup
+### Setup & Run
 
 ```bash
 # 1. Clone the repo
 git clone https://github.com/aryanagr-9114/Bank-Management-System.git
-cd Bank-Management-System
+cd Bank-Management-System/banking-api
 
-# 2. Create the database
-mysql -u root -p < schema.sql
+# 2. Build the runnable JAR
+./mvnw clean package -DskipTests
 
-# 3. Configure DB credentials
-cp config.properties.example config.properties
-# Edit config.properties — set your MySQL host, username, password
-
-# 4. Build the runnable JAR
-mvn clean package
-
-# 5. Run
-java -jar target/banking-management-system-1.0.0.jar
+# 3. Run the Spring Boot Server
+java -jar target/demo-0.0.1-SNAPSHOT.jar
 ```
+
+The application will launch on `http://localhost:8080`.
+You can access the **Interactive API Documentation** by navigating to:
+👉 `http://localhost:8080/swagger-ui.html`
 
 ---
 
