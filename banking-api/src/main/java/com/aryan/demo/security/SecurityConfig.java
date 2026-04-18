@@ -19,9 +19,10 @@ public class SecurityConfig {
             
             // 2. Set the rules for the Bouncer
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/h2-console/**").permitAll() // Allow anyone to open the Database viewer
-                .requestMatchers("/api/auth/**").permitAll()   // Allow anyone to hit Login / Register
-                .anyRequest().authenticated()                  // But BLOCK every other URL unless they have a wristband
+                .requestMatchers("/h2-console/**").permitAll()
+                .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                .anyRequest().authenticated()
             )
             
             // 3. Just a small setting to allow the H2 visual console to render in Chrome

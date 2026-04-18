@@ -142,7 +142,8 @@ mvn test
 - [x] Spring Boot 3 REST API migration *(Week 2)*
 - [x] JWT Authentication
 - [x] Account endpoints (CRUD) with global error handling
-- [ ] Swagger/OpenAPI documentation
+- [x] Transaction endpoints (Deposit, Withdraw, Transfer) with `@Transactional`
+- [x] Swagger/OpenAPI interactive documentation
 - [ ] Docker + docker-compose deployment
 - [ ] React dashboard frontend
 
