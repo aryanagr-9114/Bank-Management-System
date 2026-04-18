@@ -141,6 +141,7 @@ mvn test
 - [x] GitHub Actions CI *(Day 5)*
 - [x] Spring Boot 3 REST API migration *(Week 2)*
 - [x] JWT Authentication
+- [x] Account endpoints (CRUD) with global error handling
 - [ ] Swagger/OpenAPI documentation
 - [ ] Docker + docker-compose deployment
 - [ ] React dashboard frontend

@@ -12,7 +12,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthFilter jwtAuthFilter) throws Exception {
         http
             // 1. We are a REST API, not a browser website, so we disable CSRF protection
             .csrf(AbstractHttpConfigurer::disable)
@@ -25,7 +25,10 @@ public class SecurityConfig {
             )
             
             // 3. Just a small setting to allow the H2 visual console to render in Chrome
-            .headers(headers -> headers.frameOptions(frame -> frame.disable()));
+            .headers(headers -> headers.frameOptions(frame -> frame.disable()))
+
+            // 4. GIVE THE SCANNER TO THE BOUNCER
+            .addFilterBefore(jwtAuthFilter, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
